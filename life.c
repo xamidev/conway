@@ -54,7 +54,7 @@ int countLiveNeighbors(int grid[SIZE][SIZE], int i, int j)
   return liveNeighbors;
 }
 
-void gridNewGeneration(int grid[SIZE][SIZE])
+void gridNewGeneration(int grid[SIZE][SIZE], int temp[SIZE][SIZE])
 {
   // Go through grid
   for (int i=0; i<SIZE; i++)
@@ -72,17 +72,27 @@ void gridNewGeneration(int grid[SIZE][SIZE])
         {
           case 2:
           case 3:
-            grid[i][j] = LIVE;
+            temp[i][j] = LIVE;
             break; // Staying alive
           default:
-            grid[i][j] = DEAD;
+            temp[i][j] = DEAD;
             break;
         }
       }
       else if (cell == DEAD && liveNeighbors == 3)
       {
-        grid[i][j] = LIVE;
+        temp[i][j] = LIVE;
       }
+    }
+  }
+
+  // Transpose temporary data into new generation grid once calculations are complete
+  for (int i=0; i<SIZE; i++)
+  {
+    for (int j=0; j<SIZE; j++)
+    {
+      grid[i][j] = temp[i][j];
+      temp[i][j] = DEAD;
     }
   }
 }
@@ -91,6 +101,7 @@ int main(void)
 {
   clear();
   int grid[SIZE][SIZE] = {0};
+  int temp[SIZE][SIZE] = {0};
  
   //Glider
   grid[1][2] = LIVE;
@@ -104,7 +115,7 @@ int main(void)
 
   for (int i=0; i<GENERATIONS; i++)
   {
-    gridNewGeneration(grid);
+    gridNewGeneration(grid, temp);
     sleep(1);
     clear();
     printf("Generation %d\n\n", i+1);
