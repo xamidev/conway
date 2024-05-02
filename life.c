@@ -10,7 +10,7 @@
 // If dead cell:
 //    If it has 3 living neighbor cells, it becomes alive
 
-#define SIZE 5
+#define SIZE 20
 #define GENERATIONS 10
 #define DEAD 0
 #define LIVE 1
@@ -26,7 +26,7 @@ void printGrid(int grid[SIZE][SIZE])
   {
     for (int j=0; j<SIZE; j++)
     {
-      printf("%d ", grid[i][j]);
+      (grid[i][j] == LIVE) ? printf("%d", grid[i][j]) : printf(" ");
     }
     printf("\n");
   }
@@ -91,10 +91,13 @@ int main(void)
 {
   clear();
   int grid[SIZE][SIZE] = {0};
-  
-  grid[2][2] = LIVE;
-  grid[2][3] = LIVE;
+ 
+  //Glider
   grid[1][2] = LIVE;
+  grid[2][3] = LIVE;
+  grid[3][1] = LIVE;
+  grid[3][2] = LIVE;
+  grid[3][3] = LIVE;
 
   puts("Generation 0\n");
   printGrid(grid);
