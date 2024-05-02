@@ -13,7 +13,7 @@ void printGrid(const int grid[SIZE][2*SIZE])
   {
     for (int j=0; j<2*SIZE; j++)
     {
-      (grid[i][j] == LIVE) ? printf("@") : printf(".");
+      (grid[i][j] == LIVE) ? printf("\u2588") : printf(" ");
     }
     printf("\n");
   }
