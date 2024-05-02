@@ -7,19 +7,19 @@ void clear(void)
   printf("\e[1;1H\e[2J");
 }
 
-void printGrid(const int grid[SIZE][SIZE])
+void printGrid(const int grid[SIZE][2*SIZE])
 {
   for (int i=0; i<SIZE; i++)
   {
-    for (int j=0; j<SIZE; j++)
+    for (int j=0; j<2*SIZE; j++)
     {
-      (grid[i][j] == LIVE) ? printf("%d", grid[i][j]) : printf(" ");
+      (grid[i][j] == LIVE) ? printf("@") : printf(".");
     }
     printf("\n");
   }
 }
 
-int countLiveNeighbors(const int grid[SIZE][SIZE], int i, int j)
+int countLiveNeighbors(const int grid[SIZE][2*SIZE], int i, int j)
 {
   int liveNeighbors = 0;
   
@@ -41,12 +41,12 @@ int countLiveNeighbors(const int grid[SIZE][SIZE], int i, int j)
   return liveNeighbors;
 }
 
-void gridNewGeneration(int grid[SIZE][SIZE], int temp[SIZE][SIZE])
+void gridNewGeneration(int grid[SIZE][2*SIZE], int temp[SIZE][2*SIZE])
 {
   // Go through grid
   for (int i=0; i<SIZE; i++)
   {
-    for (int j=0; j<SIZE; j++)
+    for (int j=0; j<2*SIZE; j++)
     {
       int cell = grid[i][j];
       
@@ -54,7 +54,7 @@ void gridNewGeneration(int grid[SIZE][SIZE], int temp[SIZE][SIZE])
 
       if (cell == LIVE)
       {
-        printf("liveNeighbors=%d\n", liveNeighbors);
+        //printf("liveNeighbors=%d\n", liveNeighbors);
         switch (liveNeighbors)
         {
           case 2:
@@ -76,7 +76,7 @@ void gridNewGeneration(int grid[SIZE][SIZE], int temp[SIZE][SIZE])
   // Transpose temporary data into new generation grid once calculations are complete
   for (int i=0; i<SIZE; i++)
   {
-    for (int j=0; j<SIZE; j++)
+    for (int j=0; j<2*SIZE; j++)
     {
       grid[i][j] = temp[i][j];
       temp[i][j] = DEAD;
@@ -84,4 +84,13 @@ void gridNewGeneration(int grid[SIZE][SIZE], int temp[SIZE][SIZE])
   }
 }
 
-
+void soup(int grid[SIZE][2*SIZE])
+{
+  for (int i=0; i<SIZE; i++)
+  {
+    for (int j=0; j<2*SIZE; j++)
+    {
+      grid[i][j] = ((double)rand() / (double)RAND_MAX) > SOUP_PROB ? 1 : 0;
+    }
+  }
+}
