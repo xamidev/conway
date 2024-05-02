@@ -13,11 +13,10 @@
 //    If it has 3 living neighbor cells, it becomes alive
 
 int main(int argc, char* argv[])
-{
-  
+{ 
   clear();
-  int grid[SIZE][2*SIZE] = {0};
-  int temp[SIZE][2*SIZE] = {0};
+  unsigned char grid[SIZE][2*SIZE] = {0};
+  unsigned char temp[SIZE][2*SIZE] = {0};
   
   srand(time(NULL));
   soup(grid);

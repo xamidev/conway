@@ -4,10 +4,10 @@
 
 void clear(void)
 {
-  printf("\e[1;1H\e[2J");
+  fputs("\e[1;1H\e[2J", stdout);
 }
 
-void printGrid(const int grid[SIZE][2*SIZE])
+void printGrid(const unsigned char grid[SIZE][2*SIZE])
 {
   for (int i=0; i<SIZE; i++)
   {
@@ -15,11 +15,11 @@ void printGrid(const int grid[SIZE][2*SIZE])
     {
       (grid[i][j] == LIVE) ? printf("\u2588") : printf(" ");
     }
-    printf("\n");
+    puts("");
   }
 }
 
-int countLiveNeighbors(const int grid[SIZE][2*SIZE], int i, int j)
+int countLiveNeighbors(const unsigned char grid[SIZE][2*SIZE], int i, int j)
 {
   int liveNeighbors = 0;
   
@@ -41,7 +41,7 @@ int countLiveNeighbors(const int grid[SIZE][2*SIZE], int i, int j)
   return liveNeighbors;
 }
 
-void gridNewGeneration(int grid[SIZE][2*SIZE], int temp[SIZE][2*SIZE])
+void gridNewGeneration(unsigned char grid[SIZE][2*SIZE], unsigned char temp[SIZE][2*SIZE])
 {
   // Go through grid
   for (int i=0; i<SIZE; i++)
@@ -84,7 +84,7 @@ void gridNewGeneration(int grid[SIZE][2*SIZE], int temp[SIZE][2*SIZE])
   }
 }
 
-void soup(int grid[SIZE][2*SIZE])
+void soup(unsigned char grid[SIZE][2*SIZE])
 {
   for (int i=0; i<SIZE; i++)
   {
