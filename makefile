@@ -1,8 +1,13 @@
+CC=gcc
+CARGS=-g -Wall
+SRC_DIR=src
+BUILD_DIR=build
+
 all:
-	gcc -g -Wall life.c -o exec
+	$(CC) $(CARGS) $(SRC_DIR)/*.c -o $(BUILD_DIR)/exec
 
 run:
-	./exec
+	$(BUILD_DIR)/exec
 
 clean:
-	rm exec
+	rm $(BUILD_DIR)/*

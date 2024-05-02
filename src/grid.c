@@ -1,26 +1,13 @@
+#include "grid.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-
-// Rules: go through the 2d grid
-// If living cell:
-//    If it has fewer than 2 living neighbor cells, it dies
-//    If it has 2 or 3 living neighbor cells, it lives
-//    If it has more than 3 living neighbor cells, it dies
-// If dead cell:
-//    If it has 3 living neighbor cells, it becomes alive
-
-#define SIZE 20
-#define GENERATIONS 10
-#define DEAD 0
-#define LIVE 1
 
 void clear(void)
 {
   printf("\e[1;1H\e[2J");
 }
 
-void printGrid(int grid[SIZE][SIZE])
+void printGrid(const int grid[SIZE][SIZE])
 {
   for (int i=0; i<SIZE; i++)
   {
@@ -32,7 +19,7 @@ void printGrid(int grid[SIZE][SIZE])
   }
 }
 
-int countLiveNeighbors(int grid[SIZE][SIZE], int i, int j)
+int countLiveNeighbors(const int grid[SIZE][SIZE], int i, int j)
 {
   int liveNeighbors = 0;
   
@@ -97,31 +84,4 @@ void gridNewGeneration(int grid[SIZE][SIZE], int temp[SIZE][SIZE])
   }
 }
 
-int main(void)
-{
-  clear();
-  int grid[SIZE][SIZE] = {0};
-  int temp[SIZE][SIZE] = {0};
- 
-  //Glider
-  grid[1][2] = LIVE;
-  grid[2][3] = LIVE;
-  grid[3][1] = LIVE;
-  grid[3][2] = LIVE;
-  grid[3][3] = LIVE;
-
-  puts("Generation 0\n");
-  printGrid(grid);
-
-  for (int i=0; i<GENERATIONS; i++)
-  {
-    gridNewGeneration(grid, temp);
-    sleep(1);
-    clear();
-    printf("Generation %d\n\n", i+1);
-    printGrid(grid);
-  }
-
-  return EXIT_SUCCESS;
-}
 
